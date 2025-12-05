@@ -2,6 +2,10 @@
 // Sources: US Census Bureau ACS 2023 1-Year Estimates for Washington, DC
 // Verified: https://datausa.io/profile/geo/washington-dc
 //           https://censusreporter.org/profiles/16000US1150000-washington-dc/
+//
+// NOTE: These DC-wide averages are static reference values used for comparison.
+// Ward-specific data should be loaded dynamically from the JSON data files
+// via the hooks in useData.ts (useWardComparisonData, useDemographicsAnalysis, etc.)
 
 export const DC_AVERAGES = {
   // Economic
@@ -20,30 +24,47 @@ export const DC_AVERAGES = {
   totalPopulation: 672000,        // DC total population (2023 estimate)
 };
 
-// Ward 7 & 8 specific data for comparison (from the extracted data)
-export const WARD_DATA = {
-  ward7: {
-    population: 85685,
-    medianIncome: 97410,
-    homeownershipRate: 39.8,
-    bachelorsDegreeRate: 30.8,
-    unemploymentRate: 14.3,
-    povertyRate: 18.1,
-  },
-  ward8: {
-    population: 85246,
-    medianIncome: 81186,
-    homeownershipRate: 20.4,
-    bachelorsDegreeRate: 19.5,
-    unemploymentRate: 13.9,
-    povertyRate: 23.1,
-  },
-};
+// Type for ward data structure (for type safety)
+export interface WardStats {
+  population: number;
+  medianIncome: number;
+  homeownershipRate: number;
+  bachelorsDegreeRate: number;
+  unemploymentRate: number;
+  povertyRate: number;
+}
 
-// Key gaps for headline statistics
-export const KEY_GAPS = {
-  incomeGap: WARD_DATA.ward7.medianIncome - WARD_DATA.ward8.medianIncome, // $16,224
-  homeownershipGap: WARD_DATA.ward7.homeownershipRate - WARD_DATA.ward8.homeownershipRate, // 19.4%
-  educationGap: WARD_DATA.ward7.bachelorsDegreeRate - WARD_DATA.ward8.bachelorsDegreeRate, // 11.3%
-  povertyGap: WARD_DATA.ward8.povertyRate - WARD_DATA.ward7.povertyRate, // 5%
-};
+// Helper function to calculate key gaps from dynamic ward data
+export function calculateKeyGaps(ward7: WardStats, ward8: WardStats) {
+  return {
+    incomeGap: ward7.medianIncome - ward8.medianIncome,
+    homeownershipGap: ward7.homeownershipRate - ward8.homeownershipRate,
+    educationGap: ward7.bachelorsDegreeRate - ward8.bachelorsDegreeRate,
+    povertyGap: ward8.povertyRate - ward7.povertyRate,
+  };
+}
+
+// Helper to extract ward stats from transformed comparison data
+export function extractWardStats(wardData: { ward: number; medianIncome: number; homeownershipRate: number; bachelorsDegreeRate: number; unemploymentRate: number; povertyRate: number; population: number }[]): { ward7: WardStats | null; ward8: WardStats | null } {
+  const ward7Data = wardData.find(w => w.ward === 7);
+  const ward8Data = wardData.find(w => w.ward === 8);
+
+  return {
+    ward7: ward7Data ? {
+      population: ward7Data.population,
+      medianIncome: ward7Data.medianIncome,
+      homeownershipRate: ward7Data.homeownershipRate,
+      bachelorsDegreeRate: ward7Data.bachelorsDegreeRate,
+      unemploymentRate: ward7Data.unemploymentRate,
+      povertyRate: ward7Data.povertyRate,
+    } : null,
+    ward8: ward8Data ? {
+      population: ward8Data.population,
+      medianIncome: ward8Data.medianIncome,
+      homeownershipRate: ward8Data.homeownershipRate,
+      bachelorsDegreeRate: ward8Data.bachelorsDegreeRate,
+      unemploymentRate: ward8Data.unemploymentRate,
+      povertyRate: ward8Data.povertyRate,
+    } : null,
+  };
+}

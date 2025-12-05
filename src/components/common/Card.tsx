@@ -5,11 +5,12 @@ interface CardProps {
   className?: string;
   title?: string;
   subtitle?: string;
+  hoverable?: boolean;
 }
 
-export function Card({ children, className = '', title, subtitle }: CardProps) {
+export function Card({ children, className = '', title, subtitle, hoverable = true }: CardProps) {
   return (
-    <div className={`bg-white rounded-xl shadow-md overflow-hidden ${className}`}>
+    <div className={`bg-white rounded-xl shadow-md overflow-hidden ${hoverable ? 'card-hover' : ''} ${className}`}>
       {(title || subtitle) && (
         <div className="px-6 py-4 border-b border-slate-100">
           {title && <h3 className="text-lg font-semibold text-slate-800">{title}</h3>}
@@ -67,7 +68,7 @@ export function StatCard({
   };
 
   return (
-    <div className={`bg-white rounded-lg shadow-md border-l-4 ${borderColors[color]} p-4 md:p-6`}>
+    <div className={`card-hover bg-white rounded-xl shadow-lg border border-slate-200 border-l-4 ${borderColors[color]} p-4 md:p-6`}>
       <p className="text-sm font-medium text-slate-600 mb-1">
         {label}
       </p>

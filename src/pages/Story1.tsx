@@ -3,13 +3,13 @@ import { useWardComparisonData } from '../hooks/useData';
 import { Card, StatCard, InsightCard } from '../components/common/Card';
 import { GroupedBarChart } from '../components/charts/GroupedBarChart';
 import { EducationStackedChart } from '../components/charts/StackedBarChart';
-import { KEY_GAPS, WARD_DATA, DC_AVERAGES } from '../data/dcAverages';
+import { DC_AVERAGES, extractWardStats, calculateKeyGaps } from '../data/dcAverages';
 import { formatCurrency, formatPercent } from '../utils/formatters';
 
 export function Story1() {
-  const { charts, educationBreakdown, isLoading } = useWardComparisonData();
+  const { data: wardData, charts, educationBreakdown, isLoading } = useWardComparisonData();
 
-  if (isLoading) {
+  if (isLoading || !wardData) {
     return (
       <div className="min-h-screen bg-slate-50 flex items-center justify-center">
         <div className="text-center">
@@ -19,6 +19,19 @@ export function Story1() {
       </div>
     );
   }
+
+  // Extract ward data and calculate gaps dynamically
+  const { ward7, ward8 } = extractWardStats(wardData);
+
+  if (!ward7 || !ward8) {
+    return (
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+        <p className="text-slate-600">Error loading ward data</p>
+      </div>
+    );
+  }
+
+  const KEY_GAPS = calculateKeyGaps(ward7, ward8);
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -60,12 +73,12 @@ export function Story1() {
           <div className="grid md:grid-cols-3 gap-6">
             <StatCard
               label="Ward 7 Population"
-              value={WARD_DATA.ward7.population.toLocaleString()}
+              value={ward7.population.toLocaleString()}
               color="blue"
             />
             <StatCard
               label="Ward 8 Population"
-              value={WARD_DATA.ward8.population.toLocaleString()}
+              value={ward8.population.toLocaleString()}
               color="purple"
             />
             <StatCard
@@ -93,16 +106,16 @@ export function Story1() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-8">
             <StatCard
               label="Ward 7 Median Income"
-              value={formatCurrency(WARD_DATA.ward7.medianIncome)}
-              subValue={`${formatPercent(((WARD_DATA.ward7.medianIncome - DC_AVERAGES.medianHouseholdIncome) / DC_AVERAGES.medianHouseholdIncome) * 100)} vs DC avg`}
+              value={formatCurrency(ward7.medianIncome)}
+              subValue={`${formatPercent(((ward7.medianIncome - DC_AVERAGES.medianHouseholdIncome) / DC_AVERAGES.medianHouseholdIncome) * 100)} vs DC avg`}
               trend="down"
               trendLabel="Below DC average"
               color="blue"
             />
             <StatCard
               label="Ward 8 Median Income"
-              value={formatCurrency(WARD_DATA.ward8.medianIncome)}
-              subValue={`${formatPercent(((WARD_DATA.ward8.medianIncome - DC_AVERAGES.medianHouseholdIncome) / DC_AVERAGES.medianHouseholdIncome) * 100)} vs DC avg`}
+              value={formatCurrency(ward8.medianIncome)}
+              subValue={`${formatPercent(((ward8.medianIncome - DC_AVERAGES.medianHouseholdIncome) / DC_AVERAGES.medianHouseholdIncome) * 100)} vs DC avg`}
               trend="down"
               trendLabel="Below DC average"
               color="purple"
@@ -142,13 +155,13 @@ export function Story1() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-8">
             <StatCard
               label="Ward 7 Homeownership"
-              value={`${WARD_DATA.ward7.homeownershipRate}%`}
+              value={`${ward7.homeownershipRate}%`}
               subValue="Owner-occupied units"
               color="blue"
             />
             <StatCard
               label="Ward 8 Homeownership"
-              value={`${WARD_DATA.ward8.homeownershipRate}%`}
+              value={`${ward8.homeownershipRate}%`}
               subValue="Owner-occupied units"
               trend="down"
               trendLabel={`${KEY_GAPS.homeownershipGap.toFixed(1)}% gap`}
@@ -176,7 +189,7 @@ export function Story1() {
             <InsightCard
               variant="warning"
               title="The Homeownership Gap"
-              insight={`Ward 8's homeownership rate of ${WARD_DATA.ward8.homeownershipRate}% is less than half of Ward 7's ${WARD_DATA.ward7.homeownershipRate}%, and significantly below the DC average of ${DC_AVERAGES.homeownershipRate}%. This disparity affects wealth accumulation, neighborhood stability, and generational opportunity.`}
+              insight={`Ward 8's homeownership rate of ${ward8.homeownershipRate}% is less than half of Ward 7's ${ward7.homeownershipRate}%, and significantly below the DC average of ${DC_AVERAGES.homeownershipRate}%. This disparity affects wealth accumulation, neighborhood stability, and generational opportunity.`}
             />
           </div>
         </div>
@@ -197,13 +210,13 @@ export function Story1() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-8">
             <StatCard
               label="Ward 7 Bachelor's+"
-              value={`${WARD_DATA.ward7.bachelorsDegreeRate}%`}
+              value={`${ward7.bachelorsDegreeRate}%`}
               subValue="Bachelor's degree or higher"
               color="blue"
             />
             <StatCard
               label="Ward 8 Bachelor's+"
-              value={`${WARD_DATA.ward8.bachelorsDegreeRate}%`}
+              value={`${ward8.bachelorsDegreeRate}%`}
               subValue="Bachelor's degree or higher"
               trend="down"
               trendLabel={`${KEY_GAPS.educationGap.toFixed(1)}% gap`}
@@ -261,24 +274,24 @@ export function Story1() {
                 <div>
                   <div className="flex justify-between mb-1">
                     <span className="text-slate-600">Ward 7</span>
-                    <span className="font-semibold text-ward7">{WARD_DATA.ward7.unemploymentRate}%</span>
+                    <span className="font-semibold text-ward7">{ward7.unemploymentRate}%</span>
                   </div>
                   <div className="h-4 bg-slate-200 rounded-full overflow-hidden">
                     <div
                       className="h-full bg-ward7 rounded-full"
-                      style={{ width: `${(WARD_DATA.ward7.unemploymentRate / 20) * 100}%` }}
+                      style={{ width: `${(ward7.unemploymentRate / 20) * 100}%` }}
                     />
                   </div>
                 </div>
                 <div>
                   <div className="flex justify-between mb-1">
                     <span className="text-slate-600">Ward 8</span>
-                    <span className="font-semibold text-ward8">{WARD_DATA.ward8.unemploymentRate}%</span>
+                    <span className="font-semibold text-ward8">{ward8.unemploymentRate}%</span>
                   </div>
                   <div className="h-4 bg-slate-200 rounded-full overflow-hidden">
                     <div
                       className="h-full bg-ward8 rounded-full"
-                      style={{ width: `${(WARD_DATA.ward8.unemploymentRate / 20) * 100}%` }}
+                      style={{ width: `${(ward8.unemploymentRate / 20) * 100}%` }}
                     />
                   </div>
                 </div>
@@ -303,24 +316,24 @@ export function Story1() {
                 <div>
                   <div className="flex justify-between mb-1">
                     <span className="text-slate-600">Ward 7</span>
-                    <span className="font-semibold text-ward7">{WARD_DATA.ward7.povertyRate}%</span>
+                    <span className="font-semibold text-ward7">{ward7.povertyRate}%</span>
                   </div>
                   <div className="h-4 bg-slate-200 rounded-full overflow-hidden">
                     <div
                       className="h-full bg-ward7 rounded-full"
-                      style={{ width: `${(WARD_DATA.ward7.povertyRate / 35) * 100}%` }}
+                      style={{ width: `${(ward7.povertyRate / 35) * 100}%` }}
                     />
                   </div>
                 </div>
                 <div>
                   <div className="flex justify-between mb-1">
                     <span className="text-slate-600">Ward 8</span>
-                    <span className="font-semibold text-ward8">{WARD_DATA.ward8.povertyRate}%</span>
+                    <span className="font-semibold text-ward8">{ward8.povertyRate}%</span>
                   </div>
                   <div className="h-4 bg-slate-200 rounded-full overflow-hidden">
                     <div
                       className="h-full bg-ward8 rounded-full"
-                      style={{ width: `${(WARD_DATA.ward8.povertyRate / 35) * 100}%` }}
+                      style={{ width: `${(ward8.povertyRate / 35) * 100}%` }}
                     />
                   </div>
                 </div>

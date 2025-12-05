@@ -6,7 +6,7 @@ import { GroupedBarChart, HorizontalBarChart } from '../components/charts/Groupe
 import { EducationStackedChart, StoreTypeStackedChart } from '../components/charts/StackedBarChart';
 import { StoreTypePieChart } from '../components/charts/PieChart';
 import { getZipCodeChartData } from '../data/transformers/snapTransformer';
-import { WARD_DATA, DC_AVERAGES, KEY_GAPS } from '../data/dcAverages';
+import { DC_AVERAGES, extractWardStats, calculateKeyGaps } from '../data/dcAverages';
 import { formatCurrency } from '../utils/formatters';
 import { COLORS } from '../utils/colors';
 
@@ -16,12 +16,16 @@ export function DataExplorer() {
   const [activeCategory, setActiveCategory] = useState<DataCategory>('economic');
   const [showDCAverage, setShowDCAverage] = useState(true);
 
-  const { charts, educationBreakdown, isLoading: loadingWard } = useWardComparisonData();
+  const { data: wardData, charts, educationBreakdown, isLoading: loadingWard } = useWardComparisonData();
   const { snapByZip, storeTypes, stats, isLoading: loadingFood } = useFoodAccessAnalysis();
 
   const isLoading = loadingWard || loadingFood;
 
-  if (isLoading) {
+  // Extract ward data and calculate gaps dynamically
+  const { ward7, ward8 } = wardData ? extractWardStats(wardData) : { ward7: null, ward8: null };
+  const KEY_GAPS = ward7 && ward8 ? calculateKeyGaps(ward7, ward8) : null;
+
+  if (isLoading || !ward7 || !ward8 || !KEY_GAPS) {
     return (
       <div className="min-h-screen bg-slate-50 flex items-center justify-center">
         <div className="text-center">
@@ -113,12 +117,12 @@ export function DataExplorer() {
               <div className="grid md:grid-cols-3 gap-4 md:gap-6">
                 <StatCard
                   label="Ward 7 Median Income"
-                  value={formatCurrency(WARD_DATA.ward7.medianIncome)}
+                  value={formatCurrency(ward7.medianIncome)}
                   color="blue"
                 />
                 <StatCard
                   label="Ward 8 Median Income"
-                  value={formatCurrency(WARD_DATA.ward8.medianIncome)}
+                  value={formatCurrency(ward8.medianIncome)}
                   color="purple"
                 />
                 <StatCard
@@ -166,16 +170,16 @@ export function DataExplorer() {
                     <tbody>
                       <tr className="border-b">
                         <td className="py-3 font-medium text-ward7">Ward 7</td>
-                        <td className="text-right">{WARD_DATA.ward7.unemploymentRate}%</td>
+                        <td className="text-right">{ward7.unemploymentRate}%</td>
                         <td className="text-right text-red-600">
-                          +{(WARD_DATA.ward7.unemploymentRate - DC_AVERAGES.unemploymentRate).toFixed(1)}%
+                          +{(ward7.unemploymentRate - DC_AVERAGES.unemploymentRate).toFixed(1)}%
                         </td>
                       </tr>
                       <tr className="border-b">
                         <td className="py-3 font-medium text-ward8">Ward 8</td>
-                        <td className="text-right">{WARD_DATA.ward8.unemploymentRate}%</td>
+                        <td className="text-right">{ward8.unemploymentRate}%</td>
                         <td className="text-right text-red-600">
-                          +{(WARD_DATA.ward8.unemploymentRate - DC_AVERAGES.unemploymentRate).toFixed(1)}%
+                          +{(ward8.unemploymentRate - DC_AVERAGES.unemploymentRate).toFixed(1)}%
                         </td>
                       </tr>
                       <tr>
@@ -200,16 +204,16 @@ export function DataExplorer() {
                     <tbody>
                       <tr className="border-b">
                         <td className="py-3 font-medium text-ward7">Ward 7</td>
-                        <td className="text-right">{WARD_DATA.ward7.povertyRate}%</td>
+                        <td className="text-right">{ward7.povertyRate}%</td>
                         <td className="text-right text-red-600">
-                          +{(WARD_DATA.ward7.povertyRate - DC_AVERAGES.povertyRate).toFixed(1)}%
+                          +{(ward7.povertyRate - DC_AVERAGES.povertyRate).toFixed(1)}%
                         </td>
                       </tr>
                       <tr className="border-b">
                         <td className="py-3 font-medium text-ward8">Ward 8</td>
-                        <td className="text-right">{WARD_DATA.ward8.povertyRate}%</td>
+                        <td className="text-right">{ward8.povertyRate}%</td>
                         <td className="text-right text-red-600">
-                          +{(WARD_DATA.ward8.povertyRate - DC_AVERAGES.povertyRate).toFixed(1)}%
+                          +{(ward8.povertyRate - DC_AVERAGES.povertyRate).toFixed(1)}%
                         </td>
                       </tr>
                       <tr>
@@ -230,12 +234,12 @@ export function DataExplorer() {
               <div className="grid md:grid-cols-3 gap-4 md:gap-6">
                 <StatCard
                   label="Ward 7 Homeownership"
-                  value={`${WARD_DATA.ward7.homeownershipRate}%`}
+                  value={`${ward7.homeownershipRate}%`}
                   color="blue"
                 />
                 <StatCard
                   label="Ward 8 Homeownership"
-                  value={`${WARD_DATA.ward8.homeownershipRate}%`}
+                  value={`${ward8.homeownershipRate}%`}
                   color="purple"
                 />
                 <StatCard
@@ -266,24 +270,24 @@ export function DataExplorer() {
                       <div>
                         <div className="flex justify-between text-sm mb-1">
                           <span>Owner-Occupied</span>
-                          <span>{WARD_DATA.ward7.homeownershipRate}%</span>
+                          <span>{ward7.homeownershipRate}%</span>
                         </div>
                         <div className="h-6 bg-slate-200 rounded-full overflow-hidden">
                           <div
                             className="h-full bg-ward7 rounded-full"
-                            style={{ width: `${WARD_DATA.ward7.homeownershipRate}%` }}
+                            style={{ width: `${ward7.homeownershipRate}%` }}
                           />
                         </div>
                       </div>
                       <div>
                         <div className="flex justify-between text-sm mb-1">
                           <span>Renter-Occupied</span>
-                          <span>{(100 - WARD_DATA.ward7.homeownershipRate).toFixed(1)}%</span>
+                          <span>{(100 - ward7.homeownershipRate).toFixed(1)}%</span>
                         </div>
                         <div className="h-6 bg-slate-200 rounded-full overflow-hidden">
                           <div
                             className="h-full bg-slate-400 rounded-full"
-                            style={{ width: `${100 - WARD_DATA.ward7.homeownershipRate}%` }}
+                            style={{ width: `${100 - ward7.homeownershipRate}%` }}
                           />
                         </div>
                       </div>
@@ -295,24 +299,24 @@ export function DataExplorer() {
                       <div>
                         <div className="flex justify-between text-sm mb-1">
                           <span>Owner-Occupied</span>
-                          <span>{WARD_DATA.ward8.homeownershipRate}%</span>
+                          <span>{ward8.homeownershipRate}%</span>
                         </div>
                         <div className="h-6 bg-slate-200 rounded-full overflow-hidden">
                           <div
                             className="h-full bg-ward8 rounded-full"
-                            style={{ width: `${WARD_DATA.ward8.homeownershipRate}%` }}
+                            style={{ width: `${ward8.homeownershipRate}%` }}
                           />
                         </div>
                       </div>
                       <div>
                         <div className="flex justify-between text-sm mb-1">
                           <span>Renter-Occupied</span>
-                          <span>{(100 - WARD_DATA.ward8.homeownershipRate).toFixed(1)}%</span>
+                          <span>{(100 - ward8.homeownershipRate).toFixed(1)}%</span>
                         </div>
                         <div className="h-6 bg-slate-200 rounded-full overflow-hidden">
                           <div
                             className="h-full bg-slate-400 rounded-full"
-                            style={{ width: `${100 - WARD_DATA.ward8.homeownershipRate}%` }}
+                            style={{ width: `${100 - ward8.homeownershipRate}%` }}
                           />
                         </div>
                       </div>
@@ -329,12 +333,12 @@ export function DataExplorer() {
               <div className="grid md:grid-cols-3 gap-4 md:gap-6">
                 <StatCard
                   label="Ward 7 Bachelor's+"
-                  value={`${WARD_DATA.ward7.bachelorsDegreeRate}%`}
+                  value={`${ward7.bachelorsDegreeRate}%`}
                   color="blue"
                 />
                 <StatCard
                   label="Ward 8 Bachelor's+"
-                  value={`${WARD_DATA.ward8.bachelorsDegreeRate}%`}
+                  value={`${ward8.bachelorsDegreeRate}%`}
                   color="purple"
                 />
                 <StatCard
