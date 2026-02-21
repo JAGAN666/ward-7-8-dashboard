@@ -1,0 +1,494 @@
+{
+  "metrics": {
+    "DP03_0062E": {
+      "name": "Median Household Income",
+      "ward7": [
+        {
+          "year": 2022,
+          "value": "N/A"
+        },
+        {
+          "year": 2021,
+          "value": "N/A"
+        },
+        {
+          "year": 2020,
+          "value": "N/A"
+        },
+        {
+          "year": 2019,
+          "value": "N/A"
+        },
+        {
+          "year": 2018,
+          "value": "N/A"
+        }
+      ],
+      "ward8": [
+        {
+          "year": 2022,
+          "value": "N/A"
+        },
+        {
+          "year": 2021,
+          "value": "N/A"
+        },
+        {
+          "year": 2020,
+          "value": "N/A"
+        },
+        {
+          "year": 2019,
+          "value": "N/A"
+        },
+        {
+          "year": 2018,
+          "value": "N/A"
+        }
+      ],
+      "dc": [
+        {
+          "year": 2022,
+          "value": "N/A"
+        },
+        {
+          "year": 2021,
+          "value": "N/A"
+        },
+        {
+          "year": 2020,
+          "value": "N/A"
+        },
+        {
+          "year": 2019,
+          "value": "N/A"
+        },
+        {
+          "year": 2018,
+          "value": "N/A"
+        }
+      ]
+    },
+    "DP03_0009PE": {
+      "name": "Unemployment Rate (%)",
+      "ward7": [
+        {
+          "year": 2022,
+          "value": "N/A"
+        },
+        {
+          "year": 2021,
+          "value": "N/A"
+        },
+        {
+          "year": 2020,
+          "value": "N/A"
+        },
+        {
+          "year": 2019,
+          "value": "N/A"
+        },
+        {
+          "year": 2018,
+          "value": "N/A"
+        }
+      ],
+      "ward8": [
+        {
+          "year": 2022,
+          "value": "N/A"
+        },
+        {
+          "year": 2021,
+          "value": "N/A"
+        },
+        {
+          "year": 2020,
+          "value": "N/A"
+        },
+        {
+          "year": 2019,
+          "value": "N/A"
+        },
+        {
+          "year": 2018,
+          "value": "N/A"
+        }
+      ],
+      "dc": [
+        {
+          "year": 2022,
+          "value": "N/A"
+        },
+        {
+          "year": 2021,
+          "value": "N/A"
+        },
+        {
+          "year": 2020,
+          "value": "N/A"
+        },
+        {
+          "year": 2019,
+          "value": "N/A"
+        },
+        {
+          "year": 2018,
+          "value": "N/A"
+        }
+      ]
+    },
+    "DP03_0128PE": {
+      "name": "Poverty Rate (%)",
+      "ward7": [
+        {
+          "year": 2022,
+          "value": 23.8
+        },
+        {
+          "year": 2021,
+          "value": 25.6
+        },
+        {
+          "year": 2020,
+          "value": 25.1
+        },
+        {
+          "year": 2019,
+          "value": 26.3
+        },
+        {
+          "year": 2018,
+          "value": 26.6
+        }
+      ],
+      "ward8": [
+        {
+          "year": 2022,
+          "value": 27.7
+        },
+        {
+          "year": 2021,
+          "value": 30.2
+        },
+        {
+          "year": 2020,
+          "value": 30.4
+        },
+        {
+          "year": 2019,
+          "value": 32.9
+        },
+        {
+          "year": 2018,
+          "value": 34.2
+        }
+      ],
+      "dc": [
+        {
+          "year": 2022,
+          "value": 15.1
+        },
+        {
+          "year": 2021,
+          "value": 15.4
+        },
+        {
+          "year": 2020,
+          "value": 15.5
+        },
+        {
+          "year": 2019,
+          "value": 16.2
+        },
+        {
+          "year": 2018,
+          "value": 16.8
+        }
+      ]
+    },
+    "DP04_0046E": {
+      "name": "Owner-Occupied Units",
+      "ward7": [
+        {
+          "year": 2022,
+          "value": "N/A"
+        },
+        {
+          "year": 2021,
+          "value": "N/A"
+        },
+        {
+          "year": 2020,
+          "value": "N/A"
+        },
+        {
+          "year": 2019,
+          "value": "N/A"
+        },
+        {
+          "year": 2018,
+          "value": "N/A"
+        }
+      ],
+      "ward8": [
+        {
+          "year": 2022,
+          "value": "N/A"
+        },
+        {
+          "year": 2021,
+          "value": "N/A"
+        },
+        {
+          "year": 2020,
+          "value": "N/A"
+        },
+        {
+          "year": 2019,
+          "value": "N/A"
+        },
+        {
+          "year": 2018,
+          "value": "N/A"
+        }
+      ],
+      "dc": [
+        {
+          "year": 2022,
+          "value": "N/A"
+        },
+        {
+          "year": 2021,
+          "value": "N/A"
+        },
+        {
+          "year": 2020,
+          "value": "N/A"
+        },
+        {
+          "year": 2019,
+          "value": "N/A"
+        },
+        {
+          "year": 2018,
+          "value": "N/A"
+        }
+      ]
+    },
+    "DP04_0045E": {
+      "name": "Occupied Housing Units",
+      "ward7": [
+        {
+          "year": 2022,
+          "value": "N/A"
+        },
+        {
+          "year": 2021,
+          "value": "N/A"
+        },
+        {
+          "year": 2020,
+          "value": "N/A"
+        },
+        {
+          "year": 2019,
+          "value": "N/A"
+        },
+        {
+          "year": 2018,
+          "value": "N/A"
+        }
+      ],
+      "ward8": [
+        {
+          "year": 2022,
+          "value": "N/A"
+        },
+        {
+          "year": 2021,
+          "value": "N/A"
+        },
+        {
+          "year": 2020,
+          "value": "N/A"
+        },
+        {
+          "year": 2019,
+          "value": "N/A"
+        },
+        {
+          "year": 2018,
+          "value": "N/A"
+        }
+      ],
+      "dc": [
+        {
+          "year": 2022,
+          "value": "N/A"
+        },
+        {
+          "year": 2021,
+          "value": "N/A"
+        },
+        {
+          "year": 2020,
+          "value": "N/A"
+        },
+        {
+          "year": 2019,
+          "value": "N/A"
+        },
+        {
+          "year": 2018,
+          "value": "N/A"
+        }
+      ]
+    },
+    "DP02_0068E": {
+      "name": "Bachelor's Degree or Higher (%)",
+      "ward7": [
+        {
+          "year": 2022,
+          "value": "N/A"
+        },
+        {
+          "year": 2021,
+          "value": "N/A"
+        },
+        {
+          "year": 2020,
+          "value": "N/A"
+        },
+        {
+          "year": 2019,
+          "value": "N/A"
+        },
+        {
+          "year": 2018,
+          "value": "N/A"
+        }
+      ],
+      "ward8": [
+        {
+          "year": 2022,
+          "value": "N/A"
+        },
+        {
+          "year": 2021,
+          "value": "N/A"
+        },
+        {
+          "year": 2020,
+          "value": "N/A"
+        },
+        {
+          "year": 2019,
+          "value": "N/A"
+        },
+        {
+          "year": 2018,
+          "value": "N/A"
+        }
+      ],
+      "dc": [
+        {
+          "year": 2022,
+          "value": "N/A"
+        },
+        {
+          "year": 2021,
+          "value": "N/A"
+        },
+        {
+          "year": 2020,
+          "value": "N/A"
+        },
+        {
+          "year": 2019,
+          "value": "N/A"
+        },
+        {
+          "year": 2018,
+          "value": "N/A"
+        }
+      ]
+    },
+    "DP05_0001E": {
+      "name": "Total Population",
+      "ward7": [
+        {
+          "year": 2022,
+          "value": "N/A"
+        },
+        {
+          "year": 2021,
+          "value": "N/A"
+        },
+        {
+          "year": 2020,
+          "value": "N/A"
+        },
+        {
+          "year": 2019,
+          "value": "N/A"
+        },
+        {
+          "year": 2018,
+          "value": "N/A"
+        }
+      ],
+      "ward8": [
+        {
+          "year": 2022,
+          "value": "N/A"
+        },
+        {
+          "year": 2021,
+          "value": "N/A"
+        },
+        {
+          "year": 2020,
+          "value": "N/A"
+        },
+        {
+          "year": 2019,
+          "value": "N/A"
+        },
+        {
+          "year": 2018,
+          "value": "N/A"
+        }
+      ],
+      "dc": [
+        {
+          "year": 2022,
+          "value": "N/A"
+        },
+        {
+          "year": 2021,
+          "value": "N/A"
+        },
+        {
+          "year": 2020,
+          "value": "N/A"
+        },
+        {
+          "year": 2019,
+          "value": "N/A"
+        },
+        {
+          "year": 2018,
+          "value": "N/A"
+        }
+      ]
+    }
+  },
+  "years": [
+    2022,
+    2021,
+    2020,
+    2019,
+    2018
+  ]
+}
