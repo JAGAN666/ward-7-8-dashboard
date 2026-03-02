@@ -21,11 +21,6 @@ export function MetricCard({ metric, showFieldCode = false }: MetricCardProps) {
     }
   };
 
-  const ward7Better = metric.ward7Value !== null && metric.ward8Value !== null &&
-    metric.ward7Value > metric.ward8Value;
-  const ward8Better = metric.ward7Value !== null && metric.ward8Value !== null &&
-    metric.ward8Value > metric.ward7Value;
-
   return (
     <div className="bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden">
       {/* Header */}
@@ -39,7 +34,7 @@ export function MetricCard({ metric, showFieldCode = false }: MetricCardProps) {
       {/* Values */}
       <div className="grid grid-cols-2 divide-x divide-slate-200">
         {/* Ward 7 */}
-        <div className={`p-4 ${ward7Better ? 'bg-blue-50' : ''}`}>
+        <div className="p-4">
           <div className="flex items-center gap-2 mb-1">
             <div className="w-2.5 h-2.5 rounded-full bg-ward7" />
             <span className="text-xs font-medium text-slate-500">Ward 7</span>
@@ -50,7 +45,7 @@ export function MetricCard({ metric, showFieldCode = false }: MetricCardProps) {
         </div>
 
         {/* Ward 8 */}
-        <div className={`p-4 ${ward8Better ? 'bg-purple-50' : ''}`}>
+        <div className="p-4">
           <div className="flex items-center gap-2 mb-1">
             <div className="w-2.5 h-2.5 rounded-full bg-ward8" />
             <span className="text-xs font-medium text-slate-500">Ward 8</span>
@@ -60,23 +55,6 @@ export function MetricCard({ metric, showFieldCode = false }: MetricCardProps) {
           </p>
         </div>
       </div>
-
-      {/* Gap indicator */}
-      {metric.gap !== null && (
-        <div className="px-4 py-2 bg-slate-50 border-t border-slate-200">
-          <div className="flex items-center justify-between text-xs">
-            <span className="text-slate-500">Gap</span>
-            <span className={`font-medium ${metric.gap > 0 ? 'text-ward7' : metric.gap < 0 ? 'text-ward8' : 'text-slate-500'}`}>
-              {metric.gap > 0 ? '+' : ''}{formatValue(metric.gap, metric.format)}
-              {metric.gapPercent !== null && (
-                <span className="text-slate-400 ml-1">
-                  ({metric.gapPercent > 0 ? '+' : ''}{metric.gapPercent.toFixed(1)}%)
-                </span>
-              )}
-            </span>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
@@ -123,18 +101,6 @@ export function MetricRow({ metric, showFieldCode = false }: MetricRowProps) {
           {formatValue(metric.ward8Value, metric.format)}
         </span>
       </td>
-      <td className="py-3 px-4 text-right">
-        <span className={`text-sm font-medium ${
-          metric.gap && metric.gap > 0 ? 'text-ward7' :
-          metric.gap && metric.gap < 0 ? 'text-ward8' : 'text-slate-500'
-        }`}>
-          {metric.gap !== null ? (
-            <>
-              {metric.gap > 0 ? '+' : ''}{formatValue(metric.gap, metric.format)}
-            </>
-          ) : '—'}
-        </span>
-      </td>
     </tr>
   );
 }
@@ -167,7 +133,6 @@ export function MetricCategorySection({
                 <th className="text-left py-2 px-4 text-xs font-semibold text-slate-600">Metric</th>
                 <th className="text-right py-2 px-4 text-xs font-semibold text-ward7">Ward 7</th>
                 <th className="text-right py-2 px-4 text-xs font-semibold text-ward8">Ward 8</th>
-                <th className="text-right py-2 px-4 text-xs font-semibold text-slate-600">Gap</th>
               </tr>
             </thead>
             <tbody>

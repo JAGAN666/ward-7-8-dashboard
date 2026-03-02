@@ -237,7 +237,7 @@ export function Ward7() {
           <Card title="Homeownership Map" subtitle="DC Homeownership rates by census tract">
             <div className="w-full h-[400px] rounded-lg overflow-hidden">
               <iframe
-                src="https://www.arcgis.com/apps/mapviewer/index.html?webmap=41672388842b425eb3aeff5a41b62cc3"
+                src="https://www.arcgis.com/apps/mapviewer/index.html?webmap=41672388842b425eb3aeff5a41b62cc3&center=-76.9380,38.8850&level=13"
                 width="100%"
                 height="100%"
                 frameBorder="0"
@@ -248,7 +248,7 @@ export function Ward7() {
             </div>
             <p className="text-xs text-slate-500 mt-2 text-center">
               <a
-                href="https://www.arcgis.com/apps/mapviewer/index.html?webmap=41672388842b425eb3aeff5a41b62cc3"
+                href="https://www.arcgis.com/apps/mapviewer/index.html?webmap=41672388842b425eb3aeff5a41b62cc3&center=-76.9380,38.8850&level=13"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-ward7 hover:text-blue-800"

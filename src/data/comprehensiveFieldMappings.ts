@@ -168,25 +168,30 @@ export const SOCIAL_FIELDS: Record<string, FieldMapping> = {
 // DP03 - ECONOMIC CHARACTERISTICS (137 fields)
 // =====================================================
 export const ECONOMIC_FIELDS: Record<string, FieldMapping> = {
-  // Employment Status
-  DP03_0001E: { label: 'Population 16+ Years', description: 'Population 16 years and over', format: 'number', category: 'Employment' },
-  DP03_0002E: { label: 'In Labor Force', description: 'In labor force', format: 'number', category: 'Employment' },
-  DP03_0003E: { label: 'Civilian Labor Force', description: 'Civilian labor force', format: 'number', category: 'Employment' },
-  DP03_0004E: { label: 'Employed', description: 'Employed', format: 'number', category: 'Employment' },
-  DP03_0005E: { label: 'Unemployed', description: 'Unemployed', format: 'number', category: 'Employment' },
-  DP03_0006E: { label: 'Armed Forces', description: 'Armed Forces', format: 'number', category: 'Employment' },
-  DP03_0007E: { label: 'Not in Labor Force', description: 'Not in labor force', format: 'number', category: 'Employment' },
-  DP03_0008E: { label: 'Civilian Labor Force (16+)', description: 'Civilian labor force', format: 'number', category: 'Employment' },
-  DP03_0009PE: { label: 'Unemployment Rate', description: 'Unemployment rate', format: 'percent', category: 'Employment' },
+  // Labor Force > Population 16+ Years
+  DP03_0001E: { label: 'Population 16+ Years', description: 'Population 16 years and over', format: 'number', category: 'Labor Force: Population' },
 
-  // Employment by Sex and Age
-  DP03_0010E: { label: 'Females 16+ Years', description: 'Females 16 years and over', format: 'number', category: 'Employment' },
-  DP03_0011E: { label: 'Females in Labor Force', description: 'Females in labor force', format: 'number', category: 'Employment' },
-  DP03_0012E: { label: 'Females Civilian Labor Force', description: 'Females civilian labor force', format: 'number', category: 'Employment' },
-  DP03_0013E: { label: 'Females Employed', description: 'Females employed', format: 'number', category: 'Employment' },
+  // Labor Force > Labor Force
+  DP03_0002E: { label: 'In Labor Force', description: 'In labor force', format: 'number', category: 'Labor Force: Participation' },
+  DP03_0007E: { label: 'Not in Labor Force', description: 'Not in labor force', format: 'number', category: 'Labor Force: Participation' },
+
+  // Labor Force > Labor Force Type
+  DP03_0003E: { label: 'Civilian Labor Force', description: 'Civilian labor force', format: 'number', category: 'Labor Force: Type' },
+  DP03_0006E: { label: 'Armed Forces', description: 'Armed Forces', format: 'number', category: 'Labor Force: Type' },
+
+  // Labor Force > Employment
+  DP03_0004E: { label: 'Employed', description: 'Employed', format: 'number', category: 'Labor Force: Employment' },
+  DP03_0005E: { label: 'Unemployed', description: 'Unemployed', format: 'number', category: 'Labor Force: Employment' },
+  DP03_0009PE: { label: 'Unemployment Rate', description: 'Unemployment rate', format: 'percent', category: 'Labor Force: Employment' },
+
+  // Labor Force > Female Labor Force and Employment
+  DP03_0010E: { label: 'Females 16+ Years', description: 'Females 16 years and over', format: 'number', category: 'Labor Force: Female' },
+  DP03_0011E: { label: 'Females in Labor Force', description: 'Females in labor force', format: 'number', category: 'Labor Force: Female' },
+  DP03_0012E: { label: 'Females Civilian Labor Force', description: 'Females civilian labor force', format: 'number', category: 'Labor Force: Female' },
+  DP03_0013E: { label: 'Females Employed', description: 'Females employed', format: 'number', category: 'Labor Force: Female' },
 
   // Commuting to Work
-  DP03_0018E: { label: 'Workers 16+ Years', description: 'Workers 16 years and over', format: 'number', category: 'Commuting' },
+  DP03_0018E: { label: 'Workers 16+ Years with Commute Data', description: 'Workers 16 years and over with commute data', format: 'number', category: 'Commuting' },
   DP03_0019E: { label: 'Car, Truck, or Van - Drove Alone', description: 'Car, truck, or van -- drove alone', format: 'number', category: 'Commuting' },
   DP03_0020E: { label: 'Car, Truck, or Van - Carpooled', description: 'Car, truck, or van -- carpooled', format: 'number', category: 'Commuting' },
   DP03_0021E: { label: 'Public Transportation', description: 'Public transportation (excluding taxicab)', format: 'number', category: 'Commuting' },
@@ -226,51 +231,61 @@ export const ECONOMIC_FIELDS: Record<string, FieldMapping> = {
   DP03_0049E: { label: 'Self-Employed (Not Incorporated)', description: 'Self-employed in own not incorporated business workers', format: 'number', category: 'Class of Worker' },
   DP03_0050E: { label: 'Unpaid Family Workers', description: 'Unpaid family workers', format: 'number', category: 'Class of Worker' },
 
-  // Income and Benefits
-  DP03_0051E: { label: 'Total Households', description: 'Total households', format: 'number', category: 'Income' },
-  DP03_0052E: { label: 'Less than $10,000', description: 'Less than $10,000', format: 'number', category: 'Income' },
-  DP03_0053E: { label: '$10,000 to $14,999', description: '$10,000 to $14,999', format: 'number', category: 'Income' },
-  DP03_0054E: { label: '$15,000 to $24,999', description: '$15,000 to $24,999', format: 'number', category: 'Income' },
-  DP03_0055E: { label: '$25,000 to $34,999', description: '$25,000 to $34,999', format: 'number', category: 'Income' },
-  DP03_0056E: { label: '$35,000 to $49,999', description: '$35,000 to $49,999', format: 'number', category: 'Income' },
-  DP03_0057E: { label: '$50,000 to $74,999', description: '$50,000 to $74,999', format: 'number', category: 'Income' },
-  DP03_0058E: { label: '$75,000 to $99,999', description: '$75,000 to $99,999', format: 'number', category: 'Income' },
-  DP03_0059E: { label: '$100,000 to $149,999', description: '$100,000 to $149,999', format: 'number', category: 'Income' },
-  DP03_0060E: { label: '$150,000 to $199,999', description: '$150,000 to $199,999', format: 'number', category: 'Income' },
-  DP03_0061E: { label: '$200,000 or More', description: '$200,000 or more', format: 'number', category: 'Income' },
-  DP03_0062E: { label: 'Median Household Income', description: 'Median household income (dollars)', format: 'currency', category: 'Income' },
-  DP03_0063E: { label: 'Mean Household Income', description: 'Mean household income (dollars)', format: 'currency', category: 'Income' },
+  // Household Income > Statistics
+  DP03_0062E: { label: 'Median Household Income', description: 'Median household income (dollars)', format: 'currency', category: 'Household Income: Statistics' },
+  DP03_0063E: { label: 'Mean Household Income', description: 'Mean household income (dollars)', format: 'currency', category: 'Household Income: Statistics' },
+  DP03_0088E: { label: 'Per Capita Income', description: 'Per capita income (dollars)', format: 'currency', category: 'Household Income: Statistics' },
 
-  // Income Types
-  DP03_0064E: { label: 'With Earnings', description: 'With earnings', format: 'number', category: 'Income Sources' },
-  DP03_0065E: { label: 'Mean Earnings', description: 'Mean earnings (dollars)', format: 'currency', category: 'Income Sources' },
-  DP03_0066E: { label: 'With Social Security', description: 'With Social Security', format: 'number', category: 'Income Sources' },
-  DP03_0067E: { label: 'Mean Social Security Income', description: 'Mean Social Security income (dollars)', format: 'currency', category: 'Income Sources' },
-  DP03_0068E: { label: 'With Retirement Income', description: 'With retirement income', format: 'number', category: 'Income Sources' },
-  DP03_0069E: { label: 'Mean Retirement Income', description: 'Mean retirement income (dollars)', format: 'currency', category: 'Income Sources' },
-  DP03_0070E: { label: 'With Supplemental Security Income', description: 'With Supplemental Security Income', format: 'number', category: 'Income Sources' },
-  DP03_0071E: { label: 'Mean SSI', description: 'Mean Supplemental Security Income (dollars)', format: 'currency', category: 'Income Sources' },
-  DP03_0072E: { label: 'With Cash Public Assistance', description: 'With cash public assistance income', format: 'number', category: 'Income Sources' },
-  DP03_0073E: { label: 'Mean Cash Public Assistance', description: 'Mean cash public assistance income (dollars)', format: 'currency', category: 'Income Sources' },
-  DP03_0074E: { label: 'With Food Stamp/SNAP Benefits', description: 'With Food Stamp/SNAP benefits in past 12 months', format: 'number', category: 'Income Sources' },
+  // Household Income > Family Households
+  DP03_0075E: { label: 'Families', description: 'Families', format: 'number', category: 'Household Income: Family' },
+  DP03_0086E: { label: 'Median Family Income', description: 'Median family income (dollars)', format: 'currency', category: 'Household Income: Family' },
+  DP03_0087E: { label: 'Mean Family Income', description: 'Mean family income (dollars)', format: 'currency', category: 'Household Income: Family' },
 
-  // Families
-  DP03_0075E: { label: 'Families', description: 'Families', format: 'number', category: 'Family Income' },
-  DP03_0086E: { label: 'Median Family Income', description: 'Median family income (dollars)', format: 'currency', category: 'Family Income' },
-  DP03_0087E: { label: 'Mean Family Income', description: 'Mean family income (dollars)', format: 'currency', category: 'Family Income' },
+  // Household Income > Nonfamily Households
+  DP03_0089E: { label: 'Nonfamily Households', description: 'Nonfamily households', format: 'number', category: 'Household Income: Nonfamily' },
+  DP03_0090E: { label: 'Median Nonfamily Income', description: 'Median nonfamily income (dollars)', format: 'currency', category: 'Household Income: Nonfamily' },
+  DP03_0091E: { label: 'Mean Nonfamily Income', description: 'Mean nonfamily income (dollars)', format: 'currency', category: 'Household Income: Nonfamily' },
 
-  // Per Capita Income
-  DP03_0088E: { label: 'Per Capita Income', description: 'Per capita income (dollars)', format: 'currency', category: 'Income' },
+  // Household Income > Detailed Income Groups
+  DP03_0051E: { label: 'Total Households', description: 'Total households', format: 'number', category: 'Household Income: Detailed Groups' },
+  DP03_0052E: { label: 'Less than $10,000', description: 'Less than $10,000', format: 'number', category: 'Household Income: Detailed Groups' },
+  DP03_0053E: { label: '$10,000 to $14,999', description: '$10,000 to $14,999', format: 'number', category: 'Household Income: Detailed Groups' },
+  DP03_0054E: { label: '$15,000 to $24,999', description: '$15,000 to $24,999', format: 'number', category: 'Household Income: Detailed Groups' },
+  DP03_0055E: { label: '$25,000 to $34,999', description: '$25,000 to $34,999', format: 'number', category: 'Household Income: Detailed Groups' },
+  DP03_0056E: { label: '$35,000 to $49,999', description: '$35,000 to $49,999', format: 'number', category: 'Household Income: Detailed Groups' },
+  DP03_0057E: { label: '$50,000 to $74,999', description: '$50,000 to $74,999', format: 'number', category: 'Household Income: Detailed Groups' },
+  DP03_0058E: { label: '$75,000 to $99,999', description: '$75,000 to $99,999', format: 'number', category: 'Household Income: Detailed Groups' },
+  DP03_0059E: { label: '$100,000 to $149,999', description: '$100,000 to $149,999', format: 'number', category: 'Household Income: Detailed Groups' },
+  DP03_0060E: { label: '$150,000 to $199,999', description: '$150,000 to $199,999', format: 'number', category: 'Household Income: Detailed Groups' },
+  DP03_0061E: { label: '$200,000 or More', description: '$200,000 or more', format: 'number', category: 'Household Income: Detailed Groups' },
 
-  // Nonfamily Households
-  DP03_0089E: { label: 'Nonfamily Households', description: 'Nonfamily households', format: 'number', category: 'Income' },
-  DP03_0090E: { label: 'Median Nonfamily Income', description: 'Median nonfamily income (dollars)', format: 'currency', category: 'Income' },
-  DP03_0091E: { label: 'Mean Nonfamily Income', description: 'Mean nonfamily income (dollars)', format: 'currency', category: 'Income' },
+  // Income Sources > Household Earnings
+  DP03_0064E: { label: 'Households With Earnings', description: 'Households with earnings', format: 'number', category: 'Income Sources: Household Earnings' },
+  DP03_0065E: { label: 'Mean Earnings', description: 'Mean earnings (dollars)', format: 'currency', category: 'Income Sources: Household Earnings' },
 
-  // Median Earnings by Sex
-  DP03_0092E: { label: 'Median Earnings for Workers', description: 'Median earnings for workers (dollars)', format: 'currency', category: 'Earnings' },
-  DP03_0093E: { label: 'Median Earnings for Male Full-Time', description: 'Median earnings for male full-time, year-round workers (dollars)', format: 'currency', category: 'Earnings' },
-  DP03_0094E: { label: 'Median Earnings for Female Full-Time', description: 'Median earnings for female full-time, year-round workers (dollars)', format: 'currency', category: 'Earnings' },
+  // Income Sources > Social Security
+  DP03_0066E: { label: 'With Social Security', description: 'With Social Security', format: 'number', category: 'Income Sources: Social Security' },
+  DP03_0067E: { label: 'Mean Social Security Income', description: 'Mean Social Security income (dollars)', format: 'currency', category: 'Income Sources: Social Security' },
+
+  // Income Sources > Retirement Income
+  DP03_0068E: { label: 'With Retirement Income', description: 'With retirement income', format: 'number', category: 'Income Sources: Retirement' },
+  DP03_0069E: { label: 'Mean Retirement Income', description: 'Mean retirement income (dollars)', format: 'currency', category: 'Income Sources: Retirement' },
+
+  // Income Sources > Supplemental Security Income
+  DP03_0070E: { label: 'With Supplemental Security Income', description: 'With Supplemental Security Income', format: 'number', category: 'Income Sources: SSI' },
+  DP03_0071E: { label: 'Mean SSI', description: 'Mean Supplemental Security Income (dollars)', format: 'currency', category: 'Income Sources: SSI' },
+
+  // Income Sources > Cash Public Assistance
+  DP03_0072E: { label: 'With Cash Public Assistance', description: 'With cash public assistance income', format: 'number', category: 'Income Sources: Cash Assistance' },
+  DP03_0073E: { label: 'Mean Cash Public Assistance', description: 'Mean cash public assistance income (dollars)', format: 'currency', category: 'Income Sources: Cash Assistance' },
+
+  // Income Sources > Food Stamp/SNAP Benefits
+  DP03_0074E: { label: 'With Food Stamp/SNAP Benefits', description: 'With Food Stamp/SNAP benefits in past 12 months', format: 'number', category: 'Income Sources: SNAP' },
+
+  // Worker Earnings
+  DP03_0092E: { label: 'Median Earnings for Workers', description: 'Median earnings for workers (dollars)', format: 'currency', category: 'Worker Earnings' },
+  DP03_0093E: { label: 'Median Earnings for Male Full-Time', description: 'Median earnings for male full-time, year-round workers (dollars)', format: 'currency', category: 'Worker Earnings' },
+  DP03_0094E: { label: 'Median Earnings for Female Full-Time', description: 'Median earnings for female full-time, year-round workers (dollars)', format: 'currency', category: 'Worker Earnings' },
 
   // Health Insurance Coverage
   DP03_0095E: { label: 'Civilian Noninstitutionalized', description: 'Civilian noninstitutionalized population', format: 'number', category: 'Health Insurance' },
@@ -425,52 +440,61 @@ export const DEMOGRAPHIC_FIELDS: Record<string, FieldMapping> = {
   DP05_0001E: { label: 'Total Population', description: 'Total population', format: 'number', category: 'Population' },
   DP05_0002E: { label: 'Male', description: 'Male', format: 'number', category: 'Sex' },
   DP05_0003E: { label: 'Female', description: 'Female', format: 'number', category: 'Sex' },
-  DP05_0004E: { label: 'Sex Ratio', description: 'Sex ratio (males per 100 females)', format: 'ratio', category: 'Sex' },
 
-  // Age
-  DP05_0005E: { label: 'Under 5 Years', description: 'Under 5 years', format: 'number', category: 'Age' },
-  DP05_0006E: { label: '5 to 9 Years', description: '5 to 9 years', format: 'number', category: 'Age' },
-  DP05_0007E: { label: '10 to 14 Years', description: '10 to 14 years', format: 'number', category: 'Age' },
-  DP05_0008E: { label: '15 to 19 Years', description: '15 to 19 years', format: 'number', category: 'Age' },
-  DP05_0009E: { label: '20 to 24 Years', description: '20 to 24 years', format: 'number', category: 'Age' },
-  DP05_0010E: { label: '25 to 34 Years', description: '25 to 34 years', format: 'number', category: 'Age' },
-  DP05_0011E: { label: '35 to 44 Years', description: '35 to 44 years', format: 'number', category: 'Age' },
-  DP05_0012E: { label: '45 to 54 Years', description: '45 to 54 years', format: 'number', category: 'Age' },
-  DP05_0013E: { label: '55 to 59 Years', description: '55 to 59 years', format: 'number', category: 'Age' },
-  DP05_0014E: { label: '60 to 64 Years', description: '60 to 64 years', format: 'number', category: 'Age' },
-  DP05_0015E: { label: '65 to 74 Years', description: '65 to 74 years', format: 'number', category: 'Age' },
-  DP05_0016E: { label: '75 to 84 Years', description: '75 to 84 years', format: 'number', category: 'Age' },
-  DP05_0017E: { label: '85 Years and Over', description: '85 years and over', format: 'number', category: 'Age' },
-  DP05_0018E: { label: 'Median Age', description: 'Median age (years)', format: 'number', category: 'Age' },
-  DP05_0019E: { label: 'Under 18 Years', description: 'Under 18 years', format: 'number', category: 'Age' },
-  DP05_0020E: { label: '16 Years and Over', description: '16 years and over', format: 'number', category: 'Age' },
-  DP05_0021E: { label: '18 Years and Over', description: '18 years and over', format: 'number', category: 'Age' },
-  DP05_0022E: { label: '21 Years and Over', description: '21 years and over', format: 'number', category: 'Age' },
-  DP05_0023E: { label: '62 Years and Over', description: '62 years and over', format: 'number', category: 'Age' },
-  DP05_0024E: { label: '65 Years and Over', description: '65 years and over', format: 'number', category: 'Age' },
+  // Age > Median Age
+  DP05_0018E: { label: 'Median Age', description: 'Median age (years)', format: 'number', category: 'Age: Median Age' },
 
-  // Race
-  DP05_0033E: { label: 'Total Population (Race)', description: 'Total population', format: 'number', category: 'Race' },
-  DP05_0034E: { label: 'One Race', description: 'One race', format: 'number', category: 'Race' },
-  DP05_0035E: { label: 'Two or More Races', description: 'Two or more races', format: 'number', category: 'Race' },
-  DP05_0037E: { label: 'White', description: 'White', format: 'number', category: 'Race' },
-  DP05_0038E: { label: 'Black or African American', description: 'Black or African American', format: 'number', category: 'Race' },
-  DP05_0039E: { label: 'American Indian and Alaska Native', description: 'American Indian and Alaska Native', format: 'number', category: 'Race' },
-  DP05_0044E: { label: 'Asian', description: 'Asian', format: 'number', category: 'Race' },
-  DP05_0052E: { label: 'Native Hawaiian and Pacific Islander', description: 'Native Hawaiian and Other Pacific Islander', format: 'number', category: 'Race' },
-  DP05_0057E: { label: 'Some Other Race', description: 'Some other race', format: 'number', category: 'Race' },
+  // Age > Detailed Age Groups
+  DP05_0005E: { label: 'Under 5 Years', description: 'Under 5 years', format: 'number', category: 'Age: Detailed Age Groups' },
+  DP05_0006E: { label: '5 to 9 Years', description: '5 to 9 years', format: 'number', category: 'Age: Detailed Age Groups' },
+  DP05_0007E: { label: '10 to 14 Years', description: '10 to 14 years', format: 'number', category: 'Age: Detailed Age Groups' },
+  DP05_0008E: { label: '15 to 19 Years', description: '15 to 19 years', format: 'number', category: 'Age: Detailed Age Groups' },
+  DP05_0009E: { label: '20 to 24 Years', description: '20 to 24 years', format: 'number', category: 'Age: Detailed Age Groups' },
+  DP05_0010E: { label: '25 to 34 Years', description: '25 to 34 years', format: 'number', category: 'Age: Detailed Age Groups' },
+  DP05_0011E: { label: '35 to 44 Years', description: '35 to 44 years', format: 'number', category: 'Age: Detailed Age Groups' },
+  DP05_0012E: { label: '45 to 54 Years', description: '45 to 54 years', format: 'number', category: 'Age: Detailed Age Groups' },
+  DP05_0013E: { label: '55 to 59 Years', description: '55 to 59 years', format: 'number', category: 'Age: Detailed Age Groups' },
+  DP05_0014E: { label: '60 to 64 Years', description: '60 to 64 years', format: 'number', category: 'Age: Detailed Age Groups' },
+  DP05_0015E: { label: '65 to 74 Years', description: '65 to 74 years', format: 'number', category: 'Age: Detailed Age Groups' },
+  DP05_0016E: { label: '75 to 84 Years', description: '75 to 84 years', format: 'number', category: 'Age: Detailed Age Groups' },
+  DP05_0017E: { label: '85 Years and Over', description: '85 years and over', format: 'number', category: 'Age: Detailed Age Groups' },
 
-  // Hispanic or Latino
-  DP05_0070E: { label: 'Hispanic or Latino (Any Race)', description: 'Hispanic or Latino (of any race)', format: 'number', category: 'Hispanic Origin' },
-  DP05_0071E: { label: 'Not Hispanic or Latino', description: 'Not Hispanic or Latino', format: 'number', category: 'Hispanic Origin' },
+  // Age > Minor vs. Adult
+  DP05_0019E: { label: 'Under 18 Years', description: 'Under 18 years', format: 'number', category: 'Age: Minor vs. Adult' },
+  DP05_0021E: { label: '18 Years and Over', description: '18 years and over', format: 'number', category: 'Age: Minor vs. Adult' },
 
-  // Race Alone or in Combination
-  DP05_0076E: { label: 'White Alone or in Combination', description: 'White alone or in combination with one or more other races', format: 'number', category: 'Race Combination' },
-  DP05_0077E: { label: 'Black Alone or in Combination', description: 'Black or African American alone or in combination with one or more other races', format: 'number', category: 'Race Combination' },
-  DP05_0078E: { label: 'American Indian Alone or in Combination', description: 'American Indian and Alaska Native alone or in combination with one or more other races', format: 'number', category: 'Race Combination' },
-  DP05_0079E: { label: 'Asian Alone or in Combination', description: 'Asian alone or in combination with one or more other races', format: 'number', category: 'Race Combination' },
-  DP05_0080E: { label: 'Native Hawaiian Alone or in Combination', description: 'Native Hawaiian and Other Pacific Islander alone or in combination with one or more other races', format: 'number', category: 'Race Combination' },
-  DP05_0081E: { label: 'Some Other Race Alone or in Combination', description: 'Some other race alone or in combination with one or more other races', format: 'number', category: 'Race Combination' },
+  // Age > "Older Than" Age Groups
+  DP05_0020E: { label: '16 Years and Over', description: '16 years and over', format: 'number', category: 'Age: Older Than Groups' },
+  DP05_0022E: { label: '21 Years and Over', description: '21 years and over', format: 'number', category: 'Age: Older Than Groups' },
+  DP05_0023E: { label: '62 Years and Over', description: '62 years and over', format: 'number', category: 'Age: Older Than Groups' },
+  DP05_0024E: { label: '65 Years and Over', description: '65 years and over', format: 'number', category: 'Age: Older Than Groups' },
+
+  // Race > Total Population (All Races)
+  DP05_0033E: { label: 'Total Population (All Races)', description: 'Total population', format: 'number', category: 'Race: Total Population' },
+
+  // Race > One vs. More Than One Race
+  DP05_0034E: { label: 'One Race', description: 'One race', format: 'number', category: 'Race: One vs. More Than One' },
+  DP05_0035E: { label: 'Two or More Races', description: 'Two or more races', format: 'number', category: 'Race: One vs. More Than One' },
+
+  // Race > Detailed Population by Race (One Race)
+  DP05_0037E: { label: 'White', description: 'White', format: 'number', category: 'Race: Detailed (One Race)' },
+  DP05_0038E: { label: 'Black or African American', description: 'Black or African American', format: 'number', category: 'Race: Detailed (One Race)' },
+  DP05_0039E: { label: 'American Indian and Alaska Native', description: 'American Indian and Alaska Native', format: 'number', category: 'Race: Detailed (One Race)' },
+  DP05_0044E: { label: 'Asian', description: 'Asian', format: 'number', category: 'Race: Detailed (One Race)' },
+  DP05_0052E: { label: 'Native Hawaiian and Pacific Islander', description: 'Native Hawaiian and Other Pacific Islander', format: 'number', category: 'Race: Detailed (One Race)' },
+  DP05_0057E: { label: 'Some Other Race', description: 'Some other race', format: 'number', category: 'Race: Detailed (One Race)' },
+
+  // Race > Detailed Population by Race (Alone or in Combination)
+  DP05_0076E: { label: 'White Alone or in Combination', description: 'White alone or in combination with one or more other races', format: 'number', category: 'Race: Alone or in Combination' },
+  DP05_0077E: { label: 'Black Alone or in Combination', description: 'Black or African American alone or in combination with one or more other races', format: 'number', category: 'Race: Alone or in Combination' },
+  DP05_0078E: { label: 'American Indian Alone or in Combination', description: 'American Indian and Alaska Native alone or in combination with one or more other races', format: 'number', category: 'Race: Alone or in Combination' },
+  DP05_0079E: { label: 'Asian Alone or in Combination', description: 'Asian alone or in combination with one or more other races', format: 'number', category: 'Race: Alone or in Combination' },
+  DP05_0080E: { label: 'Native Hawaiian Alone or in Combination', description: 'Native Hawaiian and Other Pacific Islander alone or in combination with one or more other races', format: 'number', category: 'Race: Alone or in Combination' },
+  DP05_0081E: { label: 'Some Other Race Alone or in Combination', description: 'Some other race alone or in combination with one or more other races', format: 'number', category: 'Race: Alone or in Combination' },
+
+  // Race > Hispanic or Latino (of any race)
+  DP05_0070E: { label: 'Hispanic or Latino (Any Race)', description: 'Hispanic or Latino (of any race)', format: 'number', category: 'Race: Hispanic or Latino' },
+  DP05_0071E: { label: 'Not Hispanic or Latino', description: 'Not Hispanic or Latino', format: 'number', category: 'Race: Hispanic or Latino' },
 
   // Citizen Voting Age Population
   DP05_0087E: { label: 'Citizen Voting Age Population', description: 'Citizen, 18 and over population', format: 'number', category: 'Voting' },

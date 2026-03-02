@@ -44,8 +44,6 @@ export interface MetricComparison {
   category?: string;
   ward7Value: number | null;
   ward8Value: number | null;
-  gap: number | null;
-  gapPercent: number | null;
 }
 
 // Helper to extract ward values from raw data
@@ -70,11 +68,6 @@ export function transformToMetricComparisons(
     const { ward7, ward8 } = extractWardValues(data, fieldCode);
 
     if (ward7 !== null || ward8 !== null) {
-      const gap = ward7 !== null && ward8 !== null ? ward7 - ward8 : null;
-      const gapPercent = gap !== null && ward8 !== null && ward8 !== 0
-        ? (gap / ward8) * 100
-        : null;
-
       metrics.push({
         fieldCode,
         label: mapping.label,
@@ -83,8 +76,6 @@ export function transformToMetricComparisons(
         category: mapping.category,
         ward7Value: ward7,
         ward8Value: ward8,
-        gap,
-        gapPercent,
       });
     }
   }

@@ -34,9 +34,12 @@ export function Demographics() {
           </h1>
           <p className="text-xl text-blue-200 max-w-3xl">
             Comprehensive demographic comparison between Ward 7 and Ward 8, including
-            population, age distribution, sex ratios, and race/ethnicity data.
+            population, age distribution, and race/ethnicity data.
           </p>
           <div className="mt-6 flex items-center gap-4 text-sm">
+            <span className="bg-yellow-500/80 text-yellow-950 px-3 py-1 rounded-full font-semibold">
+              📅 Data Year: 2023
+            </span>
             <span className="bg-blue-700/50 px-3 py-1 rounded-full">
               {metrics?.length || 0} metrics
             </span>
@@ -64,21 +67,19 @@ export function Demographics() {
           <div className="flex items-center gap-2">
             <button
               onClick={() => setViewMode('grid')}
-              className={`px-3 py-1.5 rounded text-sm font-medium transition-colors ${
-                viewMode === 'grid'
+              className={`px-3 py-1.5 rounded text-sm font-medium transition-colors ${viewMode === 'grid'
                   ? 'bg-slate-800 text-white'
                   : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-              }`}
+                }`}
             >
               Grid View
             </button>
             <button
               onClick={() => setViewMode('table')}
-              className={`px-3 py-1.5 rounded text-sm font-medium transition-colors ${
-                viewMode === 'table'
+              className={`px-3 py-1.5 rounded text-sm font-medium transition-colors ${viewMode === 'table'
                   ? 'bg-slate-800 text-white'
                   : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-              }`}
+                }`}
             >
               Table View
             </button>
