@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useAllDataForDictionary } from '../hooks/useData';
 import { formatCurrency, formatPercent, formatNumber } from '../utils/formatters';
 
-type SortField = 'fieldCode' | 'label' | 'ward7Value' | 'ward8Value' | 'gap';
+type SortField = 'fieldCode' | 'label' | 'ward7Value' | 'ward8Value';
 type SortOrder = 'asc' | 'desc';
 
 export function DataDictionary() {
@@ -72,10 +72,6 @@ export function DataDictionary() {
         case 'ward8Value':
           aVal = a.ward8Value ?? -Infinity;
           bVal = b.ward8Value ?? -Infinity;
-          break;
-        case 'gap':
-          aVal = a.gap ?? -Infinity;
-          bVal = b.gap ?? -Infinity;
           break;
         default:
           return 0;
@@ -153,11 +149,10 @@ export function DataDictionary() {
               <button
                 key={source.name}
                 onClick={() => setSelectedSource(selectedSource === source.name ? null : source.name)}
-                className={`text-left p-4 rounded-lg border transition-colors ${
-                  selectedSource === source.name
+                className={`text-left p-4 rounded-lg border transition-colors ${selectedSource === source.name
                     ? 'bg-indigo-50 border-indigo-300'
                     : 'bg-slate-50 border-slate-200 hover:bg-slate-100'
-                }`}
+                  }`}
               >
                 <div className="font-semibold text-slate-800">{source.name}</div>
                 <div className="text-xs text-slate-500 font-mono">{source.prefix}</div>
@@ -245,12 +240,6 @@ export function DataDictionary() {
                     >
                       Ward 8 <SortIcon field="ward8Value" />
                     </th>
-                    <th
-                      className="text-right py-3 px-4 text-xs font-semibold text-slate-600 cursor-pointer hover:bg-slate-200"
-                      onClick={() => handleSort('gap')}
-                    >
-                      Gap <SortIcon field="gap" />
-                    </th>
                     <th className="text-left py-3 px-4 text-xs font-semibold text-slate-600">
                       Source
                     </th>
@@ -281,18 +270,6 @@ export function DataDictionary() {
                       <td className="py-3 px-4 text-right">
                         <span className="text-sm font-semibold text-ward8">
                           {formatValue(metric.ward8Value, metric.format)}
-                        </span>
-                      </td>
-                      <td className="py-3 px-4 text-right">
-                        <span className={`text-sm font-medium ${
-                          metric.gap && metric.gap > 0 ? 'text-ward7' :
-                          metric.gap && metric.gap < 0 ? 'text-ward8' : 'text-slate-500'
-                        }`}>
-                          {metric.gap !== null ? (
-                            <>
-                              {metric.gap > 0 ? '+' : ''}{formatValue(metric.gap, metric.format)}
-                            </>
-                          ) : '—'}
                         </span>
                       </td>
                       <td className="py-3 px-4">
@@ -338,13 +315,6 @@ export function DataDictionary() {
                 <li><span className="font-mono bg-slate-100 px-1 rounded">PE</span> - Percent Estimate (percentage)</li>
                 <li><span className="font-mono bg-slate-100 px-1 rounded">M</span> - Margin of Error</li>
               </ul>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-800">Gap Calculation</h3>
-              <p className="text-sm text-slate-600 mt-1">
-                Gap = Ward 7 Value - Ward 8 Value. A positive gap indicates Ward 7 has a higher value;
-                a negative gap indicates Ward 8 has a higher value.
-              </p>
             </div>
           </div>
         </div>
