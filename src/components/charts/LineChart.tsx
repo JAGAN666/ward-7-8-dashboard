@@ -59,6 +59,11 @@ export function LineChart({
     return formatNumber(value);
   };
 
+  // Auto-detect whether to show ward lines (skip if all values are 0)
+  const hasWard7Data = data.some(d => d.ward7 !== 0 && d.ward7 !== undefined);
+  const hasWard8Data = data.some(d => d.ward8 !== 0 && d.ward8 !== undefined);
+  const hasDCData = data.some(d => d.dcAverage !== undefined && d.dcAverage !== 0);
+
   return (
     <ResponsiveContainer width="100%" height={height}>
       <RechartsLineChart
@@ -92,25 +97,29 @@ export function LineChart({
             <span style={{ color: '#374151', fontWeight: 500 }}>{value}</span>
           )}
         />
-        <Line
-          type="monotone"
-          dataKey="ward7"
-          name="Ward 7"
-          stroke={COLORS.ward7}
-          strokeWidth={3}
-          dot={{ fill: COLORS.ward7, strokeWidth: 2, r: 4 }}
-          activeDot={{ r: 6, strokeWidth: 2 }}
-        />
-        <Line
-          type="monotone"
-          dataKey="ward8"
-          name="Ward 8"
-          stroke={COLORS.ward8}
-          strokeWidth={3}
-          dot={{ fill: COLORS.ward8, strokeWidth: 2, r: 4 }}
-          activeDot={{ r: 6, strokeWidth: 2 }}
-        />
-        {showDCAverage && data[0]?.dcAverage !== undefined && (
+        {hasWard7Data && (
+          <Line
+            type="monotone"
+            dataKey="ward7"
+            name="Ward 7"
+            stroke={COLORS.ward7}
+            strokeWidth={3}
+            dot={{ fill: COLORS.ward7, strokeWidth: 2, r: 4 }}
+            activeDot={{ r: 6, strokeWidth: 2 }}
+          />
+        )}
+        {hasWard8Data && (
+          <Line
+            type="monotone"
+            dataKey="ward8"
+            name="Ward 8"
+            stroke={COLORS.ward8}
+            strokeWidth={3}
+            dot={{ fill: COLORS.ward8, strokeWidth: 2, r: 4 }}
+            activeDot={{ r: 6, strokeWidth: 2 }}
+          />
+        )}
+        {(showDCAverage || hasDCData) && (
           <Line
             type="monotone"
             dataKey="dcAverage"

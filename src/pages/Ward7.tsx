@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useWardPageData } from '../hooks/useData';
 import { Card, StatCard } from '../components/common/Card';
-import { BOTGChart, CompactBOTG } from '../components/charts/BOTGChart';
+import { BOTGChart } from '../components/charts/BOTGChart';
 import { LineChart } from '../components/charts/LineChart';
 import { DC_AVERAGES, extractWardStats } from '../data/dcAverages';
 import { formatCurrency, formatPercent } from '../utils/formatters';
@@ -118,35 +118,7 @@ export function Ward7() {
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-2xl font-bold text-slate-800 mb-6">Economic</h2>
 
-          {/* BOTG Charts */}
-          <div className="grid md:grid-cols-3 gap-6 mb-8">
-            <CompactBOTG
-              data={medianIncomeBOTG}
-              ward={7}
-              label="Median Household Income"
-              currentValue={ward7.medianIncome}
-              dcValue={dc.medianHouseholdIncome}
-              format="currency"
-            />
-            <CompactBOTG
-              data={unemploymentBOTG}
-              ward={7}
-              label="Unemployment Rate"
-              currentValue={ward7.unemploymentRate}
-              dcValue={dc.unemploymentRate}
-              format="percent"
-            />
-            <CompactBOTG
-              data={povertyBOTG}
-              ward={7}
-              label="Poverty Rate"
-              currentValue={ward7.povertyRate}
-              dcValue={dc.povertyRate}
-              format="percent"
-            />
-          </div>
-
-          {/* Detailed BOTG Charts */}
+          {/* Full BOTG Charts */}
           <div className="grid md:grid-cols-2 gap-6 mb-8">
             <BOTGChart
               data={medianIncomeBOTG}
@@ -155,6 +127,15 @@ export function Ward7() {
               title="Median Household Income Over Time"
               unit="Dollars"
             />
+            <BOTGChart
+              data={unemploymentBOTG}
+              ward={7}
+              format="percent"
+              title="Unemployment Rate Over Time"
+              unit="Percentage"
+            />
+          </div>
+          <div className="mb-8">
             <BOTGChart
               data={povertyBOTG}
               ward={7}
@@ -169,23 +150,23 @@ export function Ward7() {
             <div className="divide-y">
               <div className="flex items-center justify-between py-3">
                 <span className="text-sm text-slate-600">Median Household Income</span>
-                <div className="flex gap-8">
-                  <span className="text-sm font-semibold text-ward7">{formatCurrency(ward7.medianIncome)}</span>
-                  <span className="text-sm text-slate-500">DC: {formatCurrency(dc.medianHouseholdIncome)}</span>
+                <div className="flex items-center gap-8">
+                  <span className="text-sm font-semibold text-ward7 w-24 text-right">{formatCurrency(ward7.medianIncome)}</span>
+                  <span className="text-sm text-slate-500 w-28 text-right">DC: {formatCurrency(dc.medianHouseholdIncome)}</span>
                 </div>
               </div>
               <div className="flex items-center justify-between py-3">
                 <span className="text-sm text-slate-600">Unemployment Rate</span>
-                <div className="flex gap-8">
-                  <span className="text-sm font-semibold text-ward7">{formatPercent(ward7.unemploymentRate)}</span>
-                  <span className="text-sm text-slate-500">DC: {formatPercent(dc.unemploymentRate)}</span>
+                <div className="flex items-center gap-8">
+                  <span className="text-sm font-semibold text-ward7 w-24 text-right">{formatPercent(ward7.unemploymentRate)}</span>
+                  <span className="text-sm text-slate-500 w-28 text-right">DC: {formatPercent(dc.unemploymentRate)}</span>
                 </div>
               </div>
               <div className="flex items-center justify-between py-3">
                 <span className="text-sm text-slate-600">Poverty Rate</span>
-                <div className="flex gap-8">
-                  <span className="text-sm font-semibold text-ward7">{formatPercent(ward7.povertyRate)}</span>
-                  <span className="text-sm text-slate-500">DC: {formatPercent(dc.povertyRate)}</span>
+                <div className="flex items-center gap-8">
+                  <span className="text-sm font-semibold text-ward7 w-24 text-right">{formatPercent(ward7.povertyRate)}</span>
+                  <span className="text-sm text-slate-500 w-28 text-right">DC: {formatPercent(dc.povertyRate)}</span>
                 </div>
               </div>
             </div>
@@ -198,41 +179,31 @@ export function Ward7() {
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-2xl font-bold text-slate-800 mb-6">Housing</h2>
 
-          <div className="grid md:grid-cols-3 gap-6 mb-8">
-            <CompactBOTG
+          <div className="grid md:grid-cols-2 gap-6 mb-8">
+            <BOTGChart
               data={homeownershipBOTG}
               ward={7}
-              label="Homeownership Rate"
-              currentValue={derivedMetrics.homeownershipRate}
-              dcValue={derivedMetrics.dcHomeownershipRate || dc.homeownershipRate}
-              format="percent"
+              format="number"
+              title="Owner-Occupied Units Over Time"
+              unit="Number of Units"
             />
-            <CompactBOTG
+            <BOTGChart
               data={rentBurdenedBOTG}
               ward={7}
-              label="Rent Burdened (35%+ of Income)"
-              currentValue={derivedMetrics.rentBurdenedRate}
-              dcValue={derivedMetrics.dcRentBurdenedRate}
               format="percent"
-            />
-            <CompactBOTG
-              data={occupancyRateBOTG}
-              ward={7}
-              label="Occupancy Rate"
-              currentValue={derivedMetrics.occupancyRate}
-              dcValue={derivedMetrics.dcOccupancyRate}
-              format="percent"
+              title="Rent Burdened Rate Over Time (35%+ of Income)"
+              unit="Percentage"
             />
           </div>
-
-          <BOTGChart
-            data={homeownershipBOTG}
-            ward={7}
-            format="number"
-            title="Owner-Occupied Units Over Time"
-            unit="Number of Units"
-            height={280}
-          />
+          <div className="mb-8">
+            <BOTGChart
+              data={occupancyRateBOTG}
+              ward={7}
+              format="percent"
+              title="Occupancy Rate Over Time"
+              unit="Percentage"
+            />
+          </div>
 
           <Card title="Homeownership Map" subtitle="DC Homeownership rates by census tract">
             <div className="w-full h-[400px] rounded-lg overflow-hidden">
@@ -265,34 +236,20 @@ export function Ward7() {
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-2xl font-bold text-slate-800 mb-6">Education</h2>
 
-          <div className="grid md:grid-cols-3 gap-6 mb-8">
-            <div className="bg-white rounded-xl border border-slate-200 p-4">
-              <p className="text-sm text-slate-500">Early Childhood Education (Under 5)</p>
-              <p className="text-2xl font-bold text-ward7">
-                {derivedMetrics.earlyChildhoodRate ? `${derivedMetrics.earlyChildhoodRate.toFixed(1)}%` : 'N/A'}
-              </p>
-              {derivedMetrics.dcEarlyChildhoodRate && (
-                <p className="text-sm text-slate-500 mt-1">
-                  DC Avg: {derivedMetrics.dcEarlyChildhoodRate.toFixed(1)}%
-                </p>
-              )}
-              <p className="text-xs text-slate-400 mt-2">Nursery + Kindergarten / Under 5 Population</p>
-            </div>
-            <CompactBOTG
+          <div className="grid md:grid-cols-2 gap-6 mb-8">
+            <BOTGChart
               data={getBOTGData('DP02_0067PE')}
               ward={7}
-              label="High School Graduate or Higher"
-              currentValue={historicalData?.DP02_0067PE?.data?.[0]?.ward7 ?? null}
-              dcValue={historicalData?.DP02_0067PE?.data?.[0]?.dc ?? dc.highSchoolGradRate}
               format="percent"
+              title="High School Graduate or Higher Over Time"
+              unit="Percentage"
             />
-            <CompactBOTG
+            <BOTGChart
               data={getBOTGData('DP02_0068PE')}
               ward={7}
-              label="Bachelor's Degree or Higher"
-              currentValue={ward7.bachelorsDegreeRate}
-              dcValue={dc.bachelorsDegreeRate}
               format="percent"
+              title="Bachelor's Degree or Higher Over Time"
+              unit="Percentage"
             />
           </div>
 
@@ -302,42 +259,57 @@ export function Ward7() {
               <div className="divide-y">
                 <div className="flex items-center justify-between py-2">
                   <span className="text-sm text-slate-600">Less than High School</span>
-                  <div className="flex gap-8">
-                    <span className="text-sm font-semibold text-ward7">
+                  <div className="flex items-center gap-8">
+                    <span className="text-sm font-semibold text-ward7 w-20 text-right">
                       {(educationBreakdown.find(e => e.ward === 7)?.lessHighSchool || 0).toFixed(1)}%
                     </span>
-                    <span className="text-sm text-slate-500">DC: ~{(100 - dc.highSchoolGradRate).toFixed(1)}%</span>
+                    <span className="text-sm text-slate-500 w-24 text-right">DC: {dc.educationBreakdown.lessHighSchool.toFixed(1)}%</span>
                   </div>
                 </div>
                 <div className="flex items-center justify-between py-2">
                   <span className="text-sm text-slate-600">High School Graduate</span>
-                  <span className="text-sm font-semibold text-ward7">
-                    {(educationBreakdown.find(e => e.ward === 7)?.highSchool || 0).toFixed(1)}%
-                  </span>
+                  <div className="flex items-center gap-8">
+                    <span className="text-sm font-semibold text-ward7 w-20 text-right">
+                      {(educationBreakdown.find(e => e.ward === 7)?.highSchool || 0).toFixed(1)}%
+                    </span>
+                    <span className="text-sm text-slate-500 w-24 text-right">DC: {dc.educationBreakdown.highSchool.toFixed(1)}%</span>
+                  </div>
                 </div>
                 <div className="flex items-center justify-between py-2">
                   <span className="text-sm text-slate-600">Some College</span>
-                  <span className="text-sm font-semibold text-ward7">
-                    {(educationBreakdown.find(e => e.ward === 7)?.someCollege || 0).toFixed(1)}%
-                  </span>
+                  <div className="flex items-center gap-8">
+                    <span className="text-sm font-semibold text-ward7 w-20 text-right">
+                      {(educationBreakdown.find(e => e.ward === 7)?.someCollege || 0).toFixed(1)}%
+                    </span>
+                    <span className="text-sm text-slate-500 w-24 text-right">DC: {dc.educationBreakdown.someCollege.toFixed(1)}%</span>
+                  </div>
                 </div>
                 <div className="flex items-center justify-between py-2">
                   <span className="text-sm text-slate-600">Associate's Degree</span>
-                  <span className="text-sm font-semibold text-ward7">
-                    {(educationBreakdown.find(e => e.ward === 7)?.associates || 0).toFixed(1)}%
-                  </span>
+                  <div className="flex items-center gap-8">
+                    <span className="text-sm font-semibold text-ward7 w-20 text-right">
+                      {(educationBreakdown.find(e => e.ward === 7)?.associates || 0).toFixed(1)}%
+                    </span>
+                    <span className="text-sm text-slate-500 w-24 text-right">DC: {dc.educationBreakdown.associates.toFixed(1)}%</span>
+                  </div>
                 </div>
                 <div className="flex items-center justify-between py-2">
                   <span className="text-sm text-slate-600">Bachelor's Degree</span>
-                  <span className="text-sm font-semibold text-ward7">
-                    {(educationBreakdown.find(e => e.ward === 7)?.bachelors || 0).toFixed(1)}%
-                  </span>
+                  <div className="flex items-center gap-8">
+                    <span className="text-sm font-semibold text-ward7 w-20 text-right">
+                      {(educationBreakdown.find(e => e.ward === 7)?.bachelors || 0).toFixed(1)}%
+                    </span>
+                    <span className="text-sm text-slate-500 w-24 text-right">DC: {dc.educationBreakdown.bachelors.toFixed(1)}%</span>
+                  </div>
                 </div>
                 <div className="flex items-center justify-between py-2">
                   <span className="text-sm text-slate-600">Graduate Degree</span>
-                  <span className="text-sm font-semibold text-ward7">
-                    {(educationBreakdown.find(e => e.ward === 7)?.graduate || 0).toFixed(1)}%
-                  </span>
+                  <div className="flex items-center gap-8">
+                    <span className="text-sm font-semibold text-ward7 w-20 text-right">
+                      {(educationBreakdown.find(e => e.ward === 7)?.graduate || 0).toFixed(1)}%
+                    </span>
+                    <span className="text-sm text-slate-500 w-24 text-right">DC: {dc.educationBreakdown.graduate.toFixed(1)}%</span>
+                  </div>
                 </div>
               </div>
             </Card>
@@ -368,19 +340,21 @@ export function Ward7() {
           )}
 
           {yearlyChartData && population && (
-            <Card title="Crime Trends (2020-2025)" subtitle="Crime incidents per 100,000 residents - Ward 7">
+            <Card title="Crime Trends (2020-2025)" subtitle="Crime incidents per 100,000 residents - Ward 7 vs DC Average">
               <LineChart
                 data={yearlyChartData.map(d => ({
                   ...d,
                   ward7: Math.round((d.ward7 / population) * 100000),
-                  ward8: 0, // Hide Ward 8 on Ward 7 page
-                  dcAverage: undefined,
+                  ward8: 0,
+                  dcAverage: dc.crimeRatePer100kByYear[d.year as number] ?? undefined,
                 }))}
                 format="number"
                 height={300}
+                showDCAverage
               />
               <p className="text-xs text-slate-500 mt-2 text-center">
-                Note: Crime data normalized to per 100,000 residents based on current population ({population.toLocaleString()}).
+                Note: Ward 7 crime data normalized to per 100,000 residents based on current population ({population.toLocaleString()}).
+                DC average from DC MPD Annual Reports.
               </p>
             </Card>
           )}

@@ -20,8 +20,29 @@ export const DC_AVERAGES = {
   bachelorsDegreeRate: 63.0,      // % with bachelor's degree or higher (2023)
   highSchoolGradRate: 91.0,       // % with high school diploma or higher
 
+  // Education Attainment Breakdown (DC-wide, Age 25+, ACS 2022 5-Year)
+  // Source: US Census ACS DP02, DC-wide totals (Pop 25+ = 484,596)
+  educationBreakdown: {
+    lessHighSchool: 7.3,    // (14,584 + 20,793) / 484,596
+    highSchool: 15.0,       // 72,816 / 484,596
+    someCollege: 12.0,      // 58,037 / 484,596
+    associates: 3.1,        // 14,834 / 484,596
+    bachelors: 25.8,        // 124,860 / 484,596
+    graduate: 36.9,         // 178,672 / 484,596
+  },
+
   // Population
   totalPopulation: 672000,        // DC total population (2023 estimate)
+
+  // Crime (DC-wide Part 1 crimes per 100,000 residents, source: DC MPD Annual Reports)
+  crimeRatePer100kByYear: {
+    2020: 3829,
+    2021: 4302,
+    2022: 4619,
+    2023: 5185,
+    2024: 4708,
+    2025: 4500,  // preliminary estimate
+  } as Record<number, number>,
 };
 
 // Type for ward data structure (for type safety)
